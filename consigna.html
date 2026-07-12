@@ -1,0 +1,470 @@
+:Consignas de Proyecto Final:proyecto_final_consignas.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consignas de Proyecto Final</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <!-- Google Fonts para una tipografía impecable -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Estilos de impresión para generar PDF perfecto en A4 */
+    @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-shadow-none {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+      .page-break-before {
+        page-break-before: always;
+      }
+      .page-break-inside-avoid {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-16">
+
+  <!-- Interfaz de Control Flotante (no-print) -->
+  <div class="no-print sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="w-full sm:w-48 bg-slate-100 rounded-full h-2.5">
+          <div id="progressBar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <span id="progressText" class="text-xs font-semibold text-slate-500 whitespace-nowrap">0% Completado</span>
+      </div>
+      <div class="flex items-center gap-2 justify-end">
+        <button onclick="resetProgress()" class="text-xs text-slate-500 hover:text-rose-600 transition-colors px-3 py-1.5 rounded-md hover:bg-slate-100 font-medium">
+          Reiniciar Progreso
+        </button>
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition-all transform active:scale-95">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229-2.523m-.229 2.523-.049-.49M11.162 18m3.437 0M9 9h6M9 12h6M4 18c-1.105 0-2-.895-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8c0 1.105-.895 2-2 2H4Z" />
+          </svg>
+          Imprimir / Guardar PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor del Documento Principal -->
+  <main class="max-w-4xl mx-auto px-4 mt-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-12 print-shadow-none transition-all">
+      
+      <!-- Encabezado Principal de Consignas -->
+      <header class="border-b border-slate-200 pb-6 mb-8">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+            Proyecto Final
+          </span>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+            Obligatorio
+          </span>
+        </div>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">📂Consignas de Proyecto Final</h1>
+        <p class="text-slate-600 leading-relaxed">
+          La fecha de lanzamiento de nuestra aplicación está cada vez más cerca. Sabrina y Matías, emocionados por ver el resultado de tu esfuerzo, quieren recordarte los aspectos clave que el sistema debe cumplir antes de su despliegue en producción.
+        </p>
+      </header>
+
+      <!-- Diálogo de Presentación -->
+      <section class="mb-8 bg-slate-50 border-l-4 border-indigo-500 p-5 rounded-r-xl print-shadow-none">
+        <div class="space-y-4">
+          <p class="text-slate-700 leading-relaxed italic">
+            Matías toma la palabra con una sonrisa: <br>
+            “Este es tu primer proyecto como parte de TechLab, y estamos realmente impresionados con tu desempeño. Ahora nos queda el paso más crucial: la salida a producción.”
+          </p>
+          <p class="text-slate-700 leading-relaxed italic">
+            Sabrina asiente y añade con confianza: “Antes de avanzar, debemos asegurarnos de que nuestra aplicación cumpla con todos los requisitos establecidos. Confiamos en tu trabajo y sabemos que todo estará listo para el gran lanzamiento.”
+          </p>
+        </div>
+      </section>
+
+      <!-- Bloque de Sección 1 -->
+      <section class="mb-8 border-t border-slate-100 pt-6">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+            Proyecto Final
+          </span>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+            Obligatorio
+          </span>
+        </div>
+        <h2 class="text-lg font-bold text-slate-900 mb-3">Premisa:</h2>
+        <div class="space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            Actualmente nuestro cliente tiene diversos productos en catálogo y precisa disponer de una API Rest desde donde su tienda oficial pueda administrarlos, habilitando la posibilidad de Leer, Crear, Actualizar y Eliminar la información sobre los productos.
+          </p>
+          <p>
+            La aplicación debe contar con una capa de autenticación para resguardad la seguridad de los datos que estarán alojados en una base de datos en la nube mediante el servicio Firestore de Firebase.
+          </p>
+          <p class="bg-slate-50 p-4 rounded-xl border border-slate-100 print-shadow-none">
+            Es importante definir una arquitectura escalable, separando las distintas responsabilidades de la aplicación en capas que permitan establecer rutas, controladores, servicios y modelos de forma clara y prolija, además de las carpetas necesarias para guardar middlewares y configuración a servicios externos.
+          </p>
+        </div>
+      </section>
+
+      <!-- Bloque de Sección 2 -->
+      <section class="mb-10 border-t border-slate-100 pt-6 page-break-before">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+            Proyecto Final
+          </span>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+            Obligatorio
+          </span>
+        </div>
+        <h2 class="text-lg font-bold text-slate-900 mb-3">Premisa:</h2>
+        <p class="text-slate-700 leading-relaxed">
+          Finalmente, la aplicación debe contemplar el manejo de errores de forma clara, teniendo en cuenta fallos del tipo 404 para rutas no definidas, los estados 401 y 403 ante errores de autenticación y códigos de estado 400 y 500 cuando las peticiones contienen errores o nuestros servicios externos de datos no responden.
+        </p>
+      </section>
+
+      <!-- Requerimientos del Proyecto -->
+      <section class="border-t-2 border-slate-200 pt-8">
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight mb-6">Requerimientos del Proyecto</h2>
+
+        <!-- Requerimiento #1 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #1: Configuración Inicial</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req1_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req1_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea un directorio donde alojarás tu proyecto e incluye un archivo <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">index.js</code> como punto de entrada.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req1_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req1_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Inicia Node.js y configura npm usando el comando <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">npm init -y</code>.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req1_3" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req1_3" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Agrega la propiedad <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">"type": "module"</code> en el archivo <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">package.json</code> para habilitar ESModules.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req1_4" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req1_4" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Configura un script llamado <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">start</code> para ejecutar el programa con el comando <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">npm run start</code>.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #2 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+              Proyecto Final
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+              Obligatorio
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #2: Instalación de dependencias</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req2_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req2_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Instala <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">express</code>, <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">cors</code>, <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">body-parser</code>, <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">dotenv</code>, <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">firebase</code> y <code class="mono bg-slate-100 text-indigo-600 px-1 py-0.5 rounded text-sm">jsonwebtoken</code> como dependencias del proyecto.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #3 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #3: Configuración del servidor</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req3_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req3_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea un servidor web con express y realiza su configuración en el archivo <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">index.js</code>.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req3_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req3_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Configura CORS para habilitar las peticiones de origen cruzado, así las aplicaciones Frontend de la empresa pueden consultar al servicio sin problemas.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req3_3" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req3_3" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Configura el middleware global de body-parser para interpretar los body en formato JSON de las peticiones.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req3_4" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req3_4" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Establece un middleware que maneje las rutas desconocidas, devolviendo el estado 404 y un mensaje.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req3_5" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req3_5" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea un archivo <code class="mono bg-slate-100 text-rose-600 px-1.5 py-0.5 rounded text-sm">.env</code> donde se alojarán las variables de entorno del proyecto.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #4 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+              Proyecto Final
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+              Obligatorio
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #4: Rutas</span>
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req4_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req4_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea la capa de rutas del proyecto.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req4_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <div for="req4_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Establece las rutas necesarias para atender las peticiones que interactúan con productos, así como también la ruta de login para autenticar usuarios:
+                
+                <!-- Rutas de Productos -->
+                <div class="mt-3 pl-2 sm:pl-4 border-l-2 border-slate-200 space-y-3">
+                  <span class="font-bold text-slate-800 text-sm block"><code class="mono bg-slate-100 text-indigo-700 px-1.5 py-0.5 rounded text-xs">products.routes.js:</code></span>
+                  <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-2 text-xs sm:text-sm mono print-shadow-none">
+                    <div><span class="text-emerald-700 font-bold">GET</span> /api/products <span class="text-slate-500 italic font-sans">— devuelve todos los productos.</span></div>
+                    <div><span class="text-emerald-700 font-bold">GET</span> /api/products/:id <span class="text-slate-500 italic font-sans">— devuelve el producto con el ID indicado.</span></div>
+                    <div><span class="text-indigo-700 font-bold">POST</span> /api/products/create <span class="text-slate-500 italic font-sans">— recibe en el cuerpo (body) de la petición la información sobre el nuevo producto para ser guardado en el servicio de datos en la nube.</span></div>
+                    <div><span class="text-rose-700 font-bold">DELETE</span> /api/products/:id <span class="text-slate-500 italic font-sans">— elimina el producto con el ID indicado.</span></div>
+                  </div>
+                </div>
+
+                <!-- Rutas de Auth -->
+                <div class="mt-4 pl-2 sm:pl-4 border-l-2 border-slate-200 space-y-3">
+                  <span class="font-bold text-slate-800 text-sm block"><code class="mono bg-slate-100 text-indigo-700 px-1.5 py-0.5 rounded text-xs">auth.routes.js:</code></span>
+                  <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs sm:text-sm mono print-shadow-none">
+                    <div><span class="text-indigo-700 font-bold">POST</span> /auth/login <span class="text-slate-500 italic font-sans">— recibe las credenciales de usuario en el cuerpo (body) de la petición y devuelve el Bearer token si son válidas o un error de autenticación en caso contrario.</span></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #5 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
+              Proyecto Final
+            </span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+              Obligatorio
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #5: Controladores y Servicios</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req5_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req5_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea la capa de controladores para cada una de las rutas establecidas en el requerimiento anterior.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req5_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req5_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea la capa de servicios para atender a cada uno de los controladores.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #6 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #6: Acceso a los datos</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req6_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req6_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea la capa de modelos de la aplicación.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req6_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req6_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea un nuevo proyecto de Firestore en Firebase, agrega una colección para registrar nuevos productos y crea el primer documento de producto para darle estructura y tipos de datos.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req6_3" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req6_3" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Configura y conecta Firebase en el proyecto.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req6_4" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req6_4" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Utiliza la instancia de Firebase creada y crea los métodos necesarios para que el modelo pueda interactuar con la base de datos remota.
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req6_5" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req6_5" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Conecta los servicios con los modelos.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Requerimiento #7 -->
+        <div class="mb-8 border border-slate-150 rounded-xl p-5 hover:border-slate-300 transition-colors print-shadow-none page-break-inside-avoid">
+          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
+            <span>Requerimiento #7: Protege tus rutas</span>
+          </h3>
+          <ul class="space-y-3.5">
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req7_1" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req7_1" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Configura JWT en el proyecto
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req7_2" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req7_2" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Crea un middleware de autenticación y protege las rutas correspondientes
+              </label>
+            </li>
+            <li class="flex items-start gap-3">
+              <input type="checkbox" id="req7_3" class="task-checkbox mt-1.5 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer no-print">
+              <label for="req7_3" class="text-slate-700 leading-relaxed cursor-pointer flex-1">
+                Agrega la lógica necesaria en la en controlador de login para validar la identidad del usuario y devolver un Bearer Token.
+              </label>
+            </li>
+          </ul>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Lógica de Checklist y Progreso en JavaScript -->
+  <script>
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    // Cargar progreso guardado en localStorage
+    function loadProgress() {
+      checkboxes.forEach((checkbox) => {
+        const checked = localStorage.getItem(checkbox.id) === 'true';
+        checkbox.checked = checked;
+        // Cambiar el estilo del texto si está completado
+        const label = document.querySelector(`label[for="${checkbox.id}"]`);
+        if (label) {
+          if (checked) {
+            label.classList.add('line-through', 'text-slate-400');
+          } else {
+            label.classList.remove('line-through', 'text-slate-400');
+          }
+        }
+      });
+      updateProgressBar();
+    }
+
+    // Calcular y actualizar el porcentaje
+    function updateProgressBar() {
+      const total = checkboxes.length;
+      const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+      const percentage = Math.round((checkedCount / total) * 100);
+      
+      progressBar.style.width = `${percentage}%`;
+      progressText.textContent = `${percentage}% Completado (${checkedCount}/${total})`;
+    }
+
+    // Guardar cambio de estado en localStorage
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener('change', (e) => {
+        localStorage.setItem(e.target.id, e.target.checked);
+        const label = document.querySelector(`label[for="${e.target.id}"]`);
+        if (label) {
+          if (e.target.checked) {
+            label.classList.add('line-through', 'text-slate-400');
+          } else {
+            label.classList.remove('line-through', 'text-slate-400');
+          }
+        }
+        updateProgressBar();
+      });
+    });
+
+    // Resetear todo el progreso
+    function resetProgress() {
+      if (confirm('¿Estás seguro de que deseas reiniciar el progreso de todas las tareas?')) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          localStorage.removeItem(checkbox.id);
+          const label = document.querySelector(`label[for="${checkbox.id}"]`);
+          if (label) {
+            label.classList.remove('line-through', 'text-slate-400');
+          }
+        });
+        updateProgressBar();
+      }
+    }
+
+    // Inicializar al cargar la página
+    document.addEventListener('DOMContentLoaded', loadProgress);
+  </script>
+</body>
+</html>

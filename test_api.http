@@ -1,0 +1,66 @@
+### NOTA: Para utilizar este archivo directamente en el editor VS Code, 
+### debe instalar la extensión "REST Client" del autor Huachao Mao.
+### Una vez instalada, aparecerá el botón "Send Request" sobre cada método.
+
+### CONFIGURACIÓN DE VARIABLES LOCALES
+# 1. Puerto del servidor
+@hostname = INDICAR_HOST
+
+# 2. Después del login, pega el token aquí:
+@token = PEGA_AQUI_EL_TOKEN
+
+# 3. Para probar GetById o Delete, pega un ID real aquí:
+@productoId = PEGA_AQUI_EL_ID
+
+# 4. Para probar el filtro, configura estos valores:
+@categoria = perifericos
+@precioMax = 50000
+
+
+### 1. Iniciar sesión para obtener el Token
+# Cambia los valores si pusiste otros en tu .env
+POST {{hostname}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@techlab.com",
+    "password": "123456"
+}
+
+### 2. Obtener todos los productos (Público)
+GET {{hostname}}/api/products
+
+### 2.1 Obtener un producto específico por ID (Público)
+GET {{hostname}}/api/products/{{productoId}}
+
+### 3. Crear un producto (Protegido - Requiere Token)
+POST {{hostname}}/api/products/create
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Producto de Prueba",
+    "description": "Teclado gamer con switches azules",
+    "price": 45000,
+    "category": "perifericos",
+    "stock": 15,
+    "imageUrl": "https://link-a-imagen.com/teclado.jpg"
+}
+
+
+### 4. Filtrar por precio y categoría
+GET {{hostname}}/api/products?category={{categoria}}&price={{precioMax}}
+
+### 5. Actualizar un producto por ID (Protegido - Requiere Token)
+PUT {{hostname}}/api/products/{{productoId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "price": 49000,
+    "stock": 12
+}
+
+### 6. Eliminar un producto (Protegido)
+DELETE {{hostname}}/api/products/{{productoId}}
+Authorization: Bearer {{token}}
