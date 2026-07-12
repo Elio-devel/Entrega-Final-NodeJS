@@ -1,0 +1,27 @@
+$kind: http-request
+name: Login
+method: POST
+url: '{{baseUrl}}/auth/login'
+order: 1000
+description: "Authenticates the admin user and returns a JWT token. Use the returned token in the `token` collection variable for protected routes."
+auth:
+  type: noauth
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "admin@techlab.com",
+      "password": "123456"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      const res = pm.response.json();
+      if (res.token) {
+        pm.collectionVariables.set("token", res.token);
+        console.log("Token saved:", res.token);
+      }

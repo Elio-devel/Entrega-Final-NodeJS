@@ -8,6 +8,7 @@ console.log("Firebase Config");
  * * Responsabilidad: Mapear las credenciales del archivo oculto .env.
  * * Nota para el equipo: Usamos 'process.env.NOMBRE_VARIABLE' para que coincida 
  * exactamente con las claves declaradas en nuestro archivo .env de la raíz.
+ * 
  */
 
 const firebaseConfig = {

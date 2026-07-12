@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get All Products
+method: GET
+url: '{{baseUrl}}/api/products'
+order: 1000
+description: 'Returns all products. Supports optional query parameters: `category` (string) and `price` (number) for filtering.'
+auth:
+  type: noauth
+queryParams:
+  - key: category
+    value: Electronics
+    disabled: true
+  - key: price
+    value: '100'
+    disabled: true

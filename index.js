@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import productsRoutes from './src/routes/products.routes.js';
 import authRoutes from './src/routes/auth.routes.js';
 
+console.log("Programa iniciado con exito");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
