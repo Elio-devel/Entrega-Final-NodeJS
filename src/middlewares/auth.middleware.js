@@ -11,7 +11,7 @@ export const verifyToken = (req, res, next) => {
 
   try {
     // Verificamos el token usando la clave secreta de nuestro .env
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
     // Guardamos los datos del usuario verificado en el request
     req.user = verified;
     next(); // Continuar a la ruta

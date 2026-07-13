@@ -3,13 +3,14 @@ import { db } from '../config/firebase.config.js';
 import {
   collection,
   addDoc,
+  doc,
+  setDoc,
   getDocs,
   getDoc,
-  doc,
   updateDoc,
   deleteDoc,
   query,
-  where,
+  where
 } from 'firebase/firestore';
 
 const productsCollection = collection(db, 'products');
@@ -17,16 +18,26 @@ const productsCollection = collection(db, 'products');
 /**
  * Función auxiliar para mapear un documento de Firestore a nuestro formato de objeto
  */
-const mapDoc = (doc) => {
-  const data = doc.data();
+
+const toSlug = (value) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+const mapDoc = (docSnapshot) => {
+  const data = docSnapshot.data();
+
   return {
-    id: doc.id,
+    id: docSnapshot.id,
     name: data.name,
     description: data.description,
     price: data.price,
     category: data.category,
     stock: data.stock,
-    imageUrl: data.imageUrl || ""
+    imageUrl: data.imageUrl || ''
   };
 };
 
@@ -35,22 +46,18 @@ const mapDoc = (doc) => {
 // creamos un nuevo producto en firebase
 // ====================================================================
 export const createProduct = async (product) => {
-  try {
-    const docRef = await addDoc(productsCollection, product);
-    return {
-      id: docRef.id,
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      category: product.category,
-      stock: product.stock,
-      imageUrl: product.imageUrl || ""
-    };
-  } catch (error) {
-    console.error('Error al crear el producto:', error);
-    throw new Error('No se pudo crear el producto');
-  }
+  const id = toSlug(product.name);
 
+  await setDoc(doc(db, 'products', id), {
+    name: product.name,
+    price: Number(product.price),
+    category: product.category,
+    stock: Number(product.stock),
+    description: product.description,
+    imageUrl: product.imageUrl || ''
+  });
+
+  return { id, ...product };
 };
 
 // ====================================================================
@@ -61,10 +68,10 @@ export const updateProduct = async (id, updatedFields) => {
   try {
     const productRef = doc(db, 'products', id);
     await updateDoc(productRef, updatedFields);
-    return { id, ...updatedFields }; // Retorna el ID y los campos actualizados
-    } catch (error) {
-    console.error(`Error al actualizar el producto con ID ${id}:`, error); // Usar backticks
-    throw new Error(`No se pudo actualizar el producto con ID ${id}`); // Usar backticks
+    return { id, ...updatedFields };
+  } catch (error) {
+    console.error(`Error al actualizar el producto con ID ${id}:`, error);
+    throw new Error(`No se pudo actualizar el producto con ID ${id}`);
   }
 };
 
@@ -76,8 +83,6 @@ export const getAllProducts = async () => {
   try {
     const querySnapshot = await getDocs(productsCollection);
     const products = querySnapshot.docs.map(mapDoc);
-
-    // Ordenamos alfabéticamente por nombre antes de devolver la lista
     return products.sort((a, b) => a.name.localeCompare(b.name));
   } catch (error) {
     console.error('Error al obtener los productos:', error);
@@ -93,12 +98,13 @@ export const getProductById = async (id) => {
   try {
     const productRef = doc(db, 'products', id);
     const docSnapshot = await getDoc(productRef);
+
     if (docSnapshot.exists()) {
       return mapDoc(docSnapshot);
-    } else {
-      return null;// producto no encontrado
     }
-  } catch (error) { // Usar backticks
+
+    return null;
+  } catch (error) {
     console.error(`Error al obtener el producto con ID ${id}:`, error);
     throw new Error(`No se pudo obtener el producto con ID ${id}`);
   }
@@ -111,21 +117,21 @@ export const getProductById = async (id) => {
 export const getProductsByFilters = async ({ category, price }) => {
   try {
     let q = productsCollection;
+
     if (category) {
       q = query(q, where('category', '==', category));
     }
+
     if (price) {
-      // El precio ya viene como número desde el controlador
       q = query(q, where('price', '<=', price));
     }
-  
+
     const querySnapshot = await getDocs(q);
     const products = querySnapshot.docs.map(mapDoc);
 
-    // También ordenamos los resultados filtrados
     return products.sort((a, b) => a.name.localeCompare(b.name));
-  } catch (error) { 
-    console.error('Error al filtrar productos:', error); // Capitalizar "Error"
+  } catch (error) {
+    console.error('Error al filtrar productos:', error);
     throw new Error('No se pudieron filtrar los productos');
   }
 };
@@ -138,9 +144,9 @@ export const deleteProduct = async (id) => {
   try {
     const productRef = doc(db, 'products', id);
     await deleteDoc(productRef);
-    return {message:`Producto con ID ${id} eliminado con éxito`}; // Usar backticks
-    } catch (error) {
-    console.error(`Error al eliminar el producto con ID ${id}:`, error); // Usar backticks
-    throw new Error(`No se pudo eliminar el producto con ID ${id}`); // Usar backticks
+    return { message: `Producto con ID ${id} eliminado con éxito` };
+  } catch (error) {
+    console.error(`Error al eliminar el producto con ID ${id}:`, error);
+    throw new Error(`No se pudo eliminar el producto con ID ${id}`);
   }
 };
