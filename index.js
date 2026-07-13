@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
       <style>
         body { 
           font-family: sans-serif; 
-          background-color: #f4f4f9; 
+          background-color: #c1c1ef; 
           margin: 0; 
           padding: 2rem;
           display: flex;
@@ -45,19 +45,19 @@ app.get('/', (req, res) => {
           background: white;
           padding: 2rem;
           border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 6px rgba(10, 9, 9, 0.1);
           width: 100%;
           max-width: 350px;
           text-align: center;
         }
-        h1 { color: #333; font-size: 24px; margin-bottom: 0.5rem; }
+        h1 { color: #323131; font-size: 24px; margin-bottom: 0.5rem; }
         .info-p { color: #666; font-size: 14px; margin-bottom: 1.5rem; }
         code { background: #eee; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
         hr { border: 0; border-top: 1px solid #eee; margin: 1.5rem 0; }
         .input-group { text-align: left; margin-bottom: 1rem; }
         label { display: block; margin-bottom: 0.4rem; color: #555; font-size: 14px; font-weight: bold; }
         input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background-color: #0070f3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 0.5rem; }
+        button { width: 100%; padding: 10px; background-color: #1870d4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 0.5rem; }
         button:hover { background-color: #0051cb; }
       </style>
     </head>
@@ -88,7 +88,7 @@ app.get('/', (req, res) => {
 
 // Registramos las rutas
 app.use('/auth', authRoutes);
-app.use(productsRoutes);
+app.use("/api/", productsRoutes);
 
 // Manejador de rutas no encontradas (404)
 app.use((req, res, next) => {

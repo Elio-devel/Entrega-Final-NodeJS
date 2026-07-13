@@ -1,5 +1,7 @@
 # Dependencias (esta carpeta pesa mucho y no se debe subir)
 node_modules/
+postman/
+.postman/
 
 # Variables de entorno (contiene las llaves secretas de Firebase)
 .env
