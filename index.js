@@ -88,7 +88,7 @@ app.get('/', (req, res) => {
 
 // Registramos las rutas
 app.use('/auth', authRoutes);
-app.use("/api/", productsRoutes);
+app.use("/api", productsRoutes);
 
 // Manejador de rutas no encontradas (404)
 app.use((req, res, next) => {

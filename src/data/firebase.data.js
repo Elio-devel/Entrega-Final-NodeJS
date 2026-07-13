@@ -1,6 +1,7 @@
+import 'dotenv/config';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import 'dotenv/config';
+
 console.log("Firebase Config");
 
 /**
